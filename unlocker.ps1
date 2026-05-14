@@ -63,32 +63,72 @@ function Write-Status { param([string]$msg, [string]$type = "info")
 
 function Write-Banner {
     Clear-Host
+
+    # ── Layout math ────────────────────────────────────────────────
+    # Art column  (between outer left ║ and centre divider ║) : 20 chars
+    # Right column (between centre divider ║ and outer right ║): 37 chars
+    # Total inner = 20 + 1 (divider) + 37 = 58
+    # Full line   = "  ║" (3) + 20 + "║" (1) + 37 + "║" (1) = 62 chars  ←  every line MUST be this
+    #
+    # Art rows:  "  ║" + " "(1) + X(8) + "  "(2) + R(8) + " "(1) + "║" + rp(37) + "║"
+    #             3    +  1     +  8   +   2    +  8   +   1    +  1  +    37   +  1  = 62 ✓
+
+    $aW  = 20   # art column inner width  (1+8+2+8+1)
+    $rW  = 37   # right column inner width
+
+    $top = "  ╔" + ("═" * $aW) + "╦" + ("═" * $rW) + "╗"
+    $mid = "  ║" + (" " * $aW) + "║" + (" " * $rW) + "║"
+    $bot = "  ╚" + ("═" * $aW) + "╩" + ("═" * $rW) + "╝"
+
+    # ── XR ASCII art — each string EXACTLY 8 chars ─────────────────
+    # Verified: ██=2  ╗╔╝╚║═=1 each   space=1
+    $aX = @(
+        "██╗  ██╗",   # 2+1+2+2+1   = 8
+        "╚██╗██╔╝",   # 1+2+1+2+1+1 = 8
+        " ╚████╔╝",   # 1+1+4+1+1   = 8
+        " ██╔██╗ ",   # 1+2+1+2+1+1 = 8
+        "██╔╝╚██╗",   # 2+1+1+1+2+1 = 8
+        "╚═╝  ╚═╝"    # 1+1+1+2+1+1+1 = 8
+    )
+    $aR = @(
+        "██████╗ ",   # 6+1+1 = 8
+        "██╔══██╗",   # 2+1+2+2+1 = 8
+        "██████╔╝",   # 6+1+1 = 8
+        "██╔══██╗",   # 8
+        "██║  ██║",   # 2+1+2+2+1 = 8
+        "╚═════╝ "    # 1+5+1+1 = 8
+    )
+
+    # ── Right-panel text — PadRight($rW) guarantees exactly 37 chars
+    $rLines = @(
+        "  MINECRAFT BEDROCK UNLOCKER",  # row 0
+        "  ─────────────────────────",   # row 1  decorative rule
+        "  v2.0   by Xenon Rexo",        # row 2
+        "  @xenonrexo",                  # row 3
+        "  Windows  /  Xbox Game Pass",  # row 4
+        ""                               # row 5  blank
+    )
+    $rFg = @($C.Title, $C.Border, $C.Accent, $C.Credit, $C.Dim, $C.Dim)
+
+    # ── Draw ──────────────────────────────────────────────────────
     Write-Host ""
-    Write-Host "  ╔══════════════════════════════════════════════════════╗" -ForegroundColor $C.Border
-    Write-Host "  ║                                                      ║" -ForegroundColor $C.Border
-    Write-Host "  ║   " -ForegroundColor $C.Border -NoNewline
-    Write-Host "███╗   ███╗ ██████╗    UNLOCKER" -ForegroundColor $C.Title -NoNewline
-    Write-Host "              ║" -ForegroundColor $C.Border
-    Write-Host "  ║   " -ForegroundColor $C.Border -NoNewline
-    Write-Host "████╗ ████║██╔════╝   " -ForegroundColor $C.Title -NoNewline
-    Write-Host "for Minecraft Bedrock" -ForegroundColor $C.Dim -NoNewline
-    Write-Host "     ║" -ForegroundColor $C.Border
-    Write-Host "  ║   " -ForegroundColor $C.Border -NoNewline
-    Write-Host "██╔████╔██║██║        " -ForegroundColor $C.Title -NoNewline
-    Write-Host "v2.0  by Xenon Rexo" -ForegroundColor $C.Accent -NoNewline
-    Write-Host "      ║" -ForegroundColor $C.Border
-    Write-Host "  ║   " -ForegroundColor $C.Border -NoNewline
-    Write-Host "██║╚██╔╝██║██║████╗  " -ForegroundColor $C.Title -NoNewline
-    Write-Host "@xenonrexo" -ForegroundColor $C.Credit -NoNewline
-    Write-Host "              ║" -ForegroundColor $C.Border
-    Write-Host "  ║   " -ForegroundColor $C.Border -NoNewline
-    Write-Host "██║ ╚═╝ ██║╚██████╔╝  " -ForegroundColor $C.Title -NoNewline
-    Write-Host "Windows / Xbox Game Pass" -ForegroundColor $C.Dim -NoNewline
-    Write-Host "  ║" -ForegroundColor $C.Border
-    Write-Host "  ║   " -ForegroundColor $C.Border -NoNewline
-    Write-Host "╚═╝     ╚═╝ ╚═════╝" -ForegroundColor $C.Title -NoNewline
-    Write-Host "                            ║" -ForegroundColor $C.Border
-    Write-Host "  ╚══════════════════════════════════════════════════════╝" -ForegroundColor $C.Border
+    Write-Host $top -ForegroundColor $C.Border
+    Write-Host $mid -ForegroundColor $C.Border
+
+    for ($i = 0; $i -lt 6; $i++) {
+        $rp = $rLines[$i].PadRight($rW)         # always exactly $rW chars
+
+        Write-Host "  ║ "      -ForegroundColor $C.Border -NoNewline   # 4
+        Write-Host $aX[$i]    -ForegroundColor $C.Title  -NoNewline   # 8
+        Write-Host "  "                                  -NoNewline   # 2
+        Write-Host $aR[$i]    -ForegroundColor $C.Accent -NoNewline   # 8
+        Write-Host " ║"       -ForegroundColor $C.Border -NoNewline   # 2  (1 pad + divider)
+        Write-Host $rp        -ForegroundColor $rFg[$i]  -NoNewline   # 37
+        Write-Host "║"        -ForegroundColor $C.Border               # 1
+    }
+
+    Write-Host $mid -ForegroundColor $C.Border
+    Write-Host $bot -ForegroundColor $C.Border
     Write-Host ""
 }
 
