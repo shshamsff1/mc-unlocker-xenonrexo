@@ -74,7 +74,7 @@ function Write-Banner {
     #             3    +  1     +  8   +   2    +  8   +   1    +  1  +    37   +  1  = 62 ✓
 
     $aW  = 21   # art column inner width  (1+8+2+8+1)
-    $rW  = 37   # right column inner width
+    $rW  = 36   # right column inner width
 
     $top = "  ╔" + ("═" * ($aW + $rW)) + "╗"
     $mid = "  ║" + (" " * ($aW + $rW)) + "║"
