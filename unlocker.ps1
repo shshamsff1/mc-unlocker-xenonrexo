@@ -17,7 +17,7 @@ function Show-Header {
     Write-Host "`n╔════════════════════════════════════════════════════════════╗" -ForegroundColor Cyan
     Write-Host "║        MINECRAFT BEDROCK UNLOCKER - PROFESSIONAL            ║" -ForegroundColor Cyan
     Write-Host "║════════════════════════════════════════════════════════════║" -ForegroundColor Cyan
-    Write-Host "║  Made by Xenon Rexo | @xenonrexo                           ║" -ForegroundColor Aqua
+    Write-Host "║  Made by Xenon Rexo | @xenonrexo                           ║" -ForegroundColor Cyan
     Write-Host "║  Version 2.0 - Enhanced Edition                            ║" -ForegroundColor Green
     Write-Host "╚════════════════════════════════════════════════════════════╝`n" -ForegroundColor Cyan
 }
@@ -280,11 +280,16 @@ function Show-Menu {
     Write-Host "║                     MAIN MENU                              ║" -ForegroundColor Cyan
     Write-Host "╠════════════════════════════════════════════════════════════╣" -ForegroundColor Cyan
     Write-Host "║                                                            ║" -ForegroundColor Cyan
-    Write-Host "║  1. Unlock Game              - Unlock Minecraft Bedrock   ║" -ForegroundColor Green
-    Write-Host "║  2. Backup Files             - Create backup of files    ║" -ForegroundColor Yellow
-    Write-Host "║  3. Restore Game Files       - Restore from backup       ║" -ForegroundColor Cyan
-    Write-Host "║  4. Look For Game Path       - Search for game location  ║" -ForegroundColor Magenta
-    Write-Host "║  5. Exit                     - Close this application    ║" -ForegroundColor Red
+    Write-Host "║  1. Unlock Game" -ForegroundColor Green -NoNewline
+    Write-Host "              - Unlock Minecraft Bedrock   ║" -ForegroundColor Yellow
+    Write-Host "║  2. Backup Files" -ForegroundColor Green -NoNewline
+    Write-Host "             - Create backup of files    ║" -ForegroundColor Yellow
+    Write-Host "║  3. Restore Game Files" -ForegroundColor Green -NoNewline
+    Write-Host "       - Restore from backup       ║" -ForegroundColor Yellow
+    Write-Host "║  4. Look For Game Path" -ForegroundColor Green -NoNewline
+    Write-Host "       - Search for game location  ║" -ForegroundColor Yellow
+    Write-Host "║  5. Exit" -ForegroundColor Green -NoNewline
+    Write-Host "                     - Close this application    ║" -ForegroundColor Yellow
     Write-Host "║                                                            ║" -ForegroundColor Cyan
     Write-Host "╚════════════════════════════════════════════════════════════╝" -ForegroundColor Cyan
 }
@@ -300,7 +305,7 @@ while ($true) {
         "3" { Restore-GameFiles }
         "4" { Search-GamePath }
         "5" { 
-            Write-Host "`n[!] Thank you for using Minecraft Bedrock Unlocker!" -ForegroundColor Aqua
+            Write-Host "`n[!] Thank you for using Minecraft Bedrock Unlocker!" -ForegroundColor Cyan
             Write-Host "[i] Made by Xenon Rexo | @xenonrexo" -ForegroundColor Cyan
             exit 
         }
