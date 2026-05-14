@@ -102,13 +102,13 @@ function Write-Banner {
     # ── Right-panel text — PadRight($rW) guarantees exactly 37 chars
     $rLines = @(
         "  MINECRAFT BEDROCK UNLOCKER",  # row 0
-        "",                             # row 1  blank
-        "  v2.0   by Xenon Rexo",        # row 2
-        "  @xenonrexo",                  # row 3
-        "  Windows  /  Xbox Game Pass",  # row 4
+        "  v2.0   by Xenon Rexo",        # row 1
+        "  @xenonrexo",                  # row 2
+        "  Windows  /  Xbox Game Pass",  # row 3
+        "",                             # row 4  blank
         ""                               # row 5  blank
     )
-    $rFg = @($C.Title, $C.Dim, $C.Title, $C.Credit, $C.Dim, $C.Dim)
+    $rFg = @($C.Title, $C.Title, $C.Credit, $C.Dim, $C.Dim, $C.Dim)
 
     # ── Draw ──────────────────────────────────────────────────────
     Write-Host ""
