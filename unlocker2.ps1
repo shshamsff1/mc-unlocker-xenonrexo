@@ -74,7 +74,7 @@ function Write-Banner {
     #             3    +  1     +  8   +   2    +  8   +   1    +  1  +    37   +  1  = 62 ✓
 
     $aW  = 20   # art column inner width  (1+8+2+8+1)
-    $rW  = 37   # right column inner width
+    $rW  = 38   # right column inner width
 
     $top = "  ╔" + ("═" * ($aW + $rW)) + "╗"
     $mid = "  ║" + (" " * ($aW + $rW)) + "║"
@@ -117,7 +117,7 @@ function Write-Banner {
     for ($i = 0; $i -lt 6; $i++) {
         $rp = $rLines[$i].PadRight($rW)         # always exactly $rW chars
 
-        Write-Host " ║ "      -ForegroundColor $C.Border -NoNewline   # 4
+        Write-Host "  ║ "      -ForegroundColor $C.Border -NoNewline   # 4
         Write-Host $aX[$i]    -ForegroundColor $C.Title  -NoNewline   # 8
         Write-Host "  "                                  -NoNewline   # 2
         Write-Host $aR[$i]    -ForegroundColor $C.Title -NoNewline   # 8
