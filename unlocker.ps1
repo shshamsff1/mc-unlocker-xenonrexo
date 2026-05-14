@@ -103,7 +103,7 @@ function Write-Banner {
     $rLines = @(
         "  MINECRAFT BEDROCK UNLOCKER",  # row 0
         "",                             # row 1  blank
-        "  v2.0   by Xenon Rexo",        # row 2
+        "  v1.0   by Xenon Rexo",        # row 2
         "  @xenonrexo",                  # row 3
         "  Windows  /  Xbox Game Pass",  # row 4
         ""                               # row 5  blank
@@ -137,10 +137,10 @@ function Write-Menu {
     Write-Host "  MAIN MENU" -ForegroundColor $C.Title
     Write-Divider
     Write-Host "  [1]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Install Minecraft For Windows (Xbox)" -ForegroundColor $C.Label
-    Write-Host "  [2]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Unlock Game" -ForegroundColor $C.Label
-    Write-Host "  [3]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Backup Game Files" -ForegroundColor $C.Label
-    Write-Host "  [4]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Restore Game Files From Backup" -ForegroundColor $C.Label
-    Write-Host "  [5]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Look For / Set Game Path" -ForegroundColor $C.Label
+    Write-Host "  [2]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Unlock Game (Trial Unlock)" -ForegroundColor $C.Label
+    Write-Host "  [3]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Backup Game Files (Backup For Restore)" -ForegroundColor $C.Label
+    Write-Host "  [4]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Restore Game Files From Backup (Just For Safety)" -ForegroundColor $C.Label
+    Write-Host "  [5]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Look For Game Path (Xbox Game Path)" -ForegroundColor $C.Label
     Write-Host "  [6]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Exit" -ForegroundColor $C.Dim
     Write-Divider
     Write-Host "  Enter option " -ForegroundColor $C.Dim -NoNewline
