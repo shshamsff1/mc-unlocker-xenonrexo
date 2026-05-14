@@ -73,8 +73,7 @@ function Write-Banner {
     # Art rows:  "  ║" + " "(1) + X(8) + "  "(2) + R(8) + " "(1) + "║" + rp(37) + "║"
     #             3    +  1     +  8   +   2    +  8   +   1    +  1  +    37   +  1  = 62 ✓
 
-    $aW  = 20   # art column inner width  (1+8+2+8+1)
-    $rW  = 38   # right column inner width
+    $innerW = 57
 
     $top = "  ╔" + ("═" * ($aW + $rW)) + "╗"
     $mid = "  ║" + (" " * ($aW + $rW)) + "║"
@@ -114,16 +113,25 @@ function Write-Banner {
     Write-Host ""
     Write-Host $top -ForegroundColor $C.Border
 
+    $innerW = $aW + $rW
+    
     for ($i = 0; $i -lt 6; $i++) {
-        $rp = $rLines[$i].PadRight($rW)         # always exactly $rW chars
-
-        Write-Host "  ║ "      -ForegroundColor $C.Border -NoNewline   # 4
-        Write-Host $aX[$i]    -ForegroundColor $C.Title  -NoNewline   # 8
-        Write-Host "  "                                  -NoNewline   # 2
-        Write-Host $aR[$i]    -ForegroundColor $C.Title -NoNewline   # 8
-        Write-Host "  "                                  -NoNewline   # 2
-        Write-Host $rp        -ForegroundColor $rFg[$i]  -NoNewline   # 37
-        Write-Host "║"        -ForegroundColor $C.Border               # 1
+    
+        $leftArt = ($aX[$i] + $aR[$i])
+    
+        # build full content line FIRST
+        $line = " $leftArt  " + $rLines[$i].PadRight($rW)
+    
+        # FORCE exact width (truncate or pad)
+        if ($line.Length -lt $innerW) {
+            $line = $line.PadRight($innerW)
+        } elseif ($line.Length -gt $innerW) {
+            $line = $line.Substring(0, $innerW)
+        }
+    
+        Write-Host " ║" -ForegroundColor $C.Border -NoNewline
+        Write-Host $line -ForegroundColor $C.Title -NoNewline
+        Write-Host "║" -ForegroundColor $C.Border
     }
 
     Write-Host $bot -ForegroundColor $C.Border
