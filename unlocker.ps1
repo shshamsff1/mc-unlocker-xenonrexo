@@ -73,12 +73,12 @@ function Write-Banner {
     # Art rows:  "  ║" + " "(1) + X(8) + "  "(2) + R(8) + " "(1) + "║" + rp(37) + "║"
     #             3    +  1     +  8   +   2    +  8   +   1    +  1  +    37   +  1  = 62 ✓
 
-    $aW  = 21   # art column inner width  (1+8+2+8+1)
-    $rW  = 36   # right column inner width
+    $aW  = 20   # art column inner width  (1+8+2+8+1)
+    $rW  = 37   # right column inner width
 
-    $top = "  ╔" + ("═" * ($aW + $rW)) + "╗"
-    $mid = "  ║" + (" " * ($aW + $rW)) + "║"
-    $bot = "  ╚" + ("═" * ($aW + $rW)) + "╝"
+    $top = "  ╔" + ("═" * $aW) + "╦" + ("═" * $rW) + "╗"
+    $mid = "  ║" + (" " * $aW) + "║" + (" " * $rW) + "║"
+    $bot = "  ╚" + ("═" * $aW) + "╩" + ("═" * $rW) + "╝"
 
     # ── XR ASCII art — each string EXACTLY 8 chars ─────────────────
     # Verified: ██=2  ╗╔╝╚║═=1 each   space=1
@@ -102,30 +102,32 @@ function Write-Banner {
     # ── Right-panel text — PadRight($rW) guarantees exactly 37 chars
     $rLines = @(
         "  MINECRAFT BEDROCK UNLOCKER",  # row 0
-        "  v2.0   by Xenon Rexo",        # row 1
-        "  @xenonrexo",                  # row 2
-        "  Windows  /  Xbox Game Pass",  # row 3
-        "",                             # row 4  blank
+        "",                             # row 1  blank
+        "  v2.0   by Xenon Rexo",        # row 2
+        "  @xenonrexo",                  # row 3
+        "  Windows  /  Xbox Game Pass",  # row 4
         ""                               # row 5  blank
     )
-    $rFg = @($C.Title, $C.Title, $C.Credit, $C.Dim, $C.Dim, $C.Dim)
+    $rFg = @($C.Title, $C.Dim, $C.Title, $C.Credit, $C.Dim, $C.Dim)
 
     # ── Draw ──────────────────────────────────────────────────────
     Write-Host ""
     Write-Host $top -ForegroundColor $C.Border
+    Write-Host $mid -ForegroundColor $C.Border
 
     for ($i = 0; $i -lt 6; $i++) {
         $rp = $rLines[$i].PadRight($rW)         # always exactly $rW chars
 
-        Write-Host " ║ "      -ForegroundColor $C.Border -NoNewline   # 4
+        Write-Host "  ║ "      -ForegroundColor $C.Border -NoNewline   # 4
         Write-Host $aX[$i]    -ForegroundColor $C.Title  -NoNewline   # 8
         Write-Host "  "                                  -NoNewline   # 2
         Write-Host $aR[$i]    -ForegroundColor $C.Title -NoNewline   # 8
-        Write-Host "  "                                  -NoNewline   # 2
+        Write-Host " ║"       -ForegroundColor $C.Border -NoNewline   # 2  (1 pad + divider)
         Write-Host $rp        -ForegroundColor $rFg[$i]  -NoNewline   # 37
         Write-Host "║"        -ForegroundColor $C.Border               # 1
     }
 
+    Write-Host $mid -ForegroundColor $C.Border
     Write-Host $bot -ForegroundColor $C.Border
     Write-Host ""
 }
