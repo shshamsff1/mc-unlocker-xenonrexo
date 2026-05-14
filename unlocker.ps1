@@ -116,14 +116,6 @@ function Write-Banner {
 
     for ($i = 0; $i -lt 6; $i++) {
         $rp = $rLines[$i].PadRight($rW)         # always exactly $rW chars
-
-        Write-Host "  ║ "      -ForegroundColor $C.Border -NoNewline   # 4
-        Write-Host $aX[$i]    -ForegroundColor $C.Title  -NoNewline   # 8
-        Write-Host "  "                                  -NoNewline   # 2
-        Write-Host $aR[$i]    -ForegroundColor $C.Title -NoNewline   # 8
-        Write-Host "  "                                  -NoNewline   # 2
-        Write-Host $rp        -ForegroundColor $rFg[$i]  -NoNewline   # 37
-        Write-Host "║"        -ForegroundColor $C.Border               # 1
     }
 
     Write-Host $bot -ForegroundColor $C.Border
