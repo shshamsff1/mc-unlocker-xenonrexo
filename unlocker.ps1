@@ -76,9 +76,9 @@ function Write-Banner {
     $aW  = 20   # art column inner width  (1+8+2+8+1)
     $rW  = 37   # right column inner width
 
-    $top = "  ╔" + ("═" * $aW) + "╦" + ("═" * $rW) + "╗"
-    $mid = "  ║" + (" " * $aW) + "║" + (" " * $rW) + "║"
-    $bot = "  ╚" + ("═" * $aW) + "╩" + ("═" * $rW) + "╝"
+    $top = "  ╔" + ("═" * $aW) + ("═" * $rW) + "╗"
+    $mid = "  ║" + (" " * $aW) + (" " * $rW) + "║"
+    $bot = "  ╚" + ("═" * $aW) + ("═" * $rW) + "╝"
 
     # ── XR ASCII art — each string EXACTLY 8 chars ─────────────────
     # Verified: ██=2  ╗╔╝╚║═=1 each   space=1
