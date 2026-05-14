@@ -102,13 +102,13 @@ function Write-Banner {
     # ── Right-panel text — PadRight($rW) guarantees exactly 37 chars
     $rLines = @(
         "  MINECRAFT BEDROCK UNLOCKER",  # row 0
-        "  ─────────────────────────",   # row 1  decorative rule
+        "",                             # row 1  blank
         "  v2.0   by Xenon Rexo",        # row 2
         "  @xenonrexo",                  # row 3
         "  Windows  /  Xbox Game Pass",  # row 4
         ""                               # row 5  blank
     )
-    $rFg = @($C.Title, $C.Border, $C.Accent, $C.Credit, $C.Dim, $C.Dim)
+    $rFg = @($C.Title, $C.Dim, $C.Title, $C.Credit, $C.Dim, $C.Dim)
 
     # ── Draw ──────────────────────────────────────────────────────
     Write-Host ""
@@ -121,7 +121,7 @@ function Write-Banner {
         Write-Host "  ║ "      -ForegroundColor $C.Border -NoNewline   # 4
         Write-Host $aX[$i]    -ForegroundColor $C.Title  -NoNewline   # 8
         Write-Host "  "                                  -NoNewline   # 2
-        Write-Host $aR[$i]    -ForegroundColor $C.Accent -NoNewline   # 8
+        Write-Host $aR[$i]    -ForegroundColor $C.Title -NoNewline   # 8
         Write-Host " ║"       -ForegroundColor $C.Border -NoNewline   # 2  (1 pad + divider)
         Write-Host $rp        -ForegroundColor $rFg[$i]  -NoNewline   # 37
         Write-Host "║"        -ForegroundColor $C.Border               # 1
@@ -136,14 +136,15 @@ function Write-Menu {
     Write-Divider
     Write-Host "  MAIN MENU" -ForegroundColor $C.Title
     Write-Divider
-    Write-Host "  [1]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Unlock Game" -ForegroundColor $C.Label
-    Write-Host "  [2]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Backup Game Files" -ForegroundColor $C.Label
-    Write-Host "  [3]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Restore Game Files From Backup" -ForegroundColor $C.Label
-    Write-Host "  [4]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Look For / Set Game Path" -ForegroundColor $C.Label
-    Write-Host "  [5]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Exit" -ForegroundColor $C.Dim
+    Write-Host "  [1]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Install Minecraft For Windows (Xbox)" -ForegroundColor $C.Label
+    Write-Host "  [2]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Unlock Game" -ForegroundColor $C.Label
+    Write-Host "  [3]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Backup Game Files" -ForegroundColor $C.Label
+    Write-Host "  [4]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Restore Game Files From Backup" -ForegroundColor $C.Label
+    Write-Host "  [5]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Look For / Set Game Path" -ForegroundColor $C.Label
+    Write-Host "  [6]  " -ForegroundColor $C.Accent -NoNewline; Write-Host "Exit" -ForegroundColor $C.Dim
     Write-Divider
     Write-Host "  Enter option " -ForegroundColor $C.Dim -NoNewline
-    Write-Host "[1-5]" -ForegroundColor $C.Accent -NoNewline
+    Write-Host "[1-6]" -ForegroundColor $C.Accent -NoNewline
     Write-Host ": " -ForegroundColor $C.Dim -NoNewline
 }
 
@@ -303,6 +304,22 @@ function Invoke-UnlockGame {
 # ════════════════════════════════════════════════════════════
 #  OPTION 2 — Backup Files
 # ════════════════════════════════════════════════════════════
+
+function Invoke-InstallMinecraft {
+    Write-Banner
+    Write-Host "  INSTALL MINECRAFT FOR WINDOWS (XBOX)" -ForegroundColor $C.Title
+    Write-Divider
+    Write-Host ""
+    Write-Status "Opening Xbox store page..." "wait"
+    try {
+        Start-Process "https://www.xbox.com/en-US/games/store/minecraft-for-windows/9nblggh2jhxj"
+        Write-Status "Xbox store page opened in your browser." "ok"
+    } catch {
+        Write-Status "Failed to open browser: $_" "fail"
+    }
+    Write-Host ""
+    Pause-Return
+}
 
 function Invoke-BackupFiles {
     Write-Banner
@@ -559,11 +576,12 @@ while ($true) {
     $choice = Read-Host
 
     switch ($choice.Trim()) {
-        "1" { Invoke-UnlockGame   }
-        "2" { Invoke-BackupFiles  }
-        "3" { Invoke-RestoreFiles }
-        "4" { Invoke-LookForPath  }
-        "5" {
+        "1" { Invoke-InstallMinecraft }
+        "2" { Invoke-UnlockGame   }
+        "3" { Invoke-BackupFiles  }
+        "4" { Invoke-RestoreFiles }
+        "5" { Invoke-LookForPath  }
+        "6" {
             Write-Host ""
             Write-Host "  Bye! — Xenon Rexo " -ForegroundColor $C.Credit
             Write-Host "  @xenonrexo" -ForegroundColor $C.Dim
@@ -573,7 +591,7 @@ while ($true) {
         }
         default {
             Write-Host ""
-            Write-Status "Invalid option. Enter a number between 1 and 5." "fail"
+            Write-Status "Invalid option. Enter a number between 1 and 6." "fail"
             Start-Sleep -Seconds 1
         }
     }
